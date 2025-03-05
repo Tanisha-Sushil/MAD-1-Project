@@ -1,0 +1,43 @@
+{% extends 'nav_link.html' %}
+
+{% block title %} Add Services: A-Z Household Services {% endblock title %}
+
+{% block content %}
+<div class="container-fluid mt-2 p-3">
+    <h1 class="text-center">Add Services</h1>
+    <div class="d-flex justify-content-center">
+        <form class="w-50 justify-content-center" method="POST" action="/add_services">
+            <div class="mb-3">
+                <label for="service_name" class="form-label"><strong>Service Name</strong></label>
+                <input type="text" class="form-control" id="service_name" name = 'service_name'>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label"><strong>Service Description</strong></label>
+                <textarea class="form-control" id="description" name = description></textarea>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="charges" class="form-label"><strong>Charges</strong></label>
+                    <input type="number" class="form-control" id="charges" name = 'charges' required>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="service_time" class="form-label"><strong>Service Time (in minutes)</strong> </label>
+                    <input type="number" class="form-control" id="service_time" name = 'service_time'>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="profession_name" class="form-label">Profession</label>
+                <select class="form-select" id="profession_name" name = 'profession'>
+                    <option selected>Choose...</option>
+                    {% for prof in professions %}
+                    <option value="{{ prof.id }}">{{ prof.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form> 
+    </div>
+</div>
+{% endblock content %}

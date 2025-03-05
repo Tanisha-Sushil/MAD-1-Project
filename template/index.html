@@ -1,0 +1,54 @@
+{% extends 'nav_link.html' %}
+
+{% block title %} Home: A-Z Household Services {% endblock title %}
+
+{% block content %}
+{% if session['role']!='professional' %}
+  {% if session['name'] %}
+  <div class="container-fluid mt-5">
+    {% for prof in professions %}
+    <div class="container-fluid mt-5">
+      <h3 class="text-center">{{prof.name}}</h3>
+      <div class="container-fluid justify-content-center">
+        <div class="row">
+          {% for service in prof.services %}
+          <div class="card col-3 m-3">
+            <div class="card-body">
+              <h4 class="card-title">{{service.name}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary"><strong>Price: Rs {{service.charges}}</strong></h6>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Time: {{service.service_time}} minutes</h6>
+              <p class="card-text"><em>{{service.description}}</em></p>
+              {% if (session['role']=='admin') %}
+                <a href={{url_for('edit_services', id=service.id)}} class="btn btn-primary">Edit</a>
+                <a href={{url_for('delete_service', id=service.id)}} class="btn btn-primary">Delete</a>
+              {% endif %}
+              {% if (session['role']=='customer') %}
+                <a href={{url_for('view_service',id = service.id)}} class="btn btn-primary">Show Available Professionals </a>
+                {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="container-fluid mt-5 p-5">
+    <h1 class="text-center">Welcome to A-Z Household Services</h1>
+    <p class="text-center">One Stop Solution for all your Problems.</p>
+    <div class="d-flex justify-content-center">
+      <a class="btn btn-primary justify-content-center" href={{url_for('login')}}>Explore Now</a>
+    </div>  
+  </div>
+  {% endif %}
+{% else %}
+  <div class="container-fluid mt-5">
+    <h1 class="text-center">Welcome, {{session['name']}}</h1>
+    <p class="text-center">You are logged in as a Professional</p>
+    <div class="d-flex justify-content-center">
+      <a class="btn btn-primary justify-content-center" href={{url_for('view_requests')}}>View Requests</a>
+    </div>  
+  </div>
+{% endif %}
+{% endblock content %}

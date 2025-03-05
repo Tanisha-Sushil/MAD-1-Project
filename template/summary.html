@@ -1,0 +1,32 @@
+{% extends 'nav_link.html' %}
+
+{% block title %} A-Z Household Services {% endblock title %}
+
+{% block content %}
+<div>
+    <!-- <h1>Summary</h1> -->
+    <div class="row mt-4">
+        <div class = 'col md-6 justify-content-center text-center'>
+            <h5>Total Customer</h5>
+            <h1>{{total_customers}}</h1>
+        </div>
+        <div class = 'col md-6 justify-content-center text-center'>
+            <h5>Total Professionals</h5>
+            <h1>{{total_professionals}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class = 'col md-6 justify-content-center text-center'>
+            <h5>Total Services</h5>
+            <h1>{{total_services}}</h1>
+        </div>
+        <div class = 'col md-6 justify-content-center text-center'>
+            <h5>Total Revenue</h5>
+            <h1>Rs {{total_earnings}}</h1>
+        </div>
+
+    <div class="row">
+        <img src="{{url_for('static',filename='earnings.png')}}" width="50">
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'nav_link.html' %}
+
+{% block title %} Delete Service: A-Z Household Services {% endblock title %}
+
+{% block content %}
+<div class="container-fluid justify-content-center mt-2 p-3">
+    <h1 class="text-center">Delete Service</h1>
+    <div class=" container-fluid">
+        <p>Are you sure you want to delete the service?</p>
+        <form class="w-50 justify-content-center" method="POST" action="{{ '/delete_service/'+ service.id|string }}">
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary">Delete Service</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

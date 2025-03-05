@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Prof Register: A-Z Household Services {% endblock title %}
+
+{% block nav_items %} 
+<li class="nav-item">
+  <a class="nav-link" href={{ url_for('login') }}>Login</a>
+</li>   
+{% endblock nav_items %}
+
+{% block search %}
+{% endblock search %}
+
+{% block content %}
+<div class="container-fluid mt-2 p-3">
+    <h1 class="text-center">Complete Profile</h1>
+    <div id="RegisterHelp" class="text-center">Complete your profile</div>
+    <div class="d-flex justify-content-center">
+        <form class="w-50 justify-content-center" method="POST" action="{{'/prof_register/' + user_id|string}}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="experience" class="form-label"><strong>Experience (in years)</strong></label>
+                <input type="number" class="form-control" id="experience" name="experience" required>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-4">
+                <label for="id_proof" class="form-label" ><strong>Upload Identity Proof</strong></label>
+                </div>
+                <div class="mb-3 col-8">
+                <input type="file" id="id_proof" class="form-control" name="id_proof" accept=".pdf" required>&ensp;
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="profession_name" class="form-label">Profession</label>
+                <select class="form-select" id="profession_name" name = 'profession'>
+                    <option selected>Choose...</option>
+                    {% for prof in professions %}
+                    <option value="{{ prof.id }}">{{ prof.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-primary">Complete Profile</button>
+                </div>
+                <div class="d-flex justify-content-center mt-2">
+                    <span>Alreay an existing user? &ensp; </span>
+                    <a href={{ url_for("login") }}>Login</a>
+                </div>
+            </div>
+        </form>
+    </div>  
+</div>
+{% endblock content %}

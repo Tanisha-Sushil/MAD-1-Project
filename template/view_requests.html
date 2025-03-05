@@ -1,0 +1,98 @@
+{% extends 'nav_link.html' %}
+
+{% block title %} A-Z Household Services {% endblock title %}
+
+{% block content %}
+<div>
+    <h1>Requests</h1>
+    {% if session['role'] == 'professional' %}
+    <div class="row">
+        {% for request in service_requests %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ request.customer.name }}</h5>
+                    <p class="card-text">Service <strong>{{request.service.name}} </strong> requested on <em>{{ request.service_date }}</em></p>
+                    <p class="card-text">{{ request.service.description }}</p>
+                    <p class="card-text">Service Charges: Rs {{ request.service.charges }}</p>
+                    <p class="card-text">Service Time: {{ request.service.service_time }} minutes</p>
+                    {% if request.status == 'pending' %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ url_for('accept_request', id=request.id) }}" class="btn btn-sm btn-outline-success">Accept</a>
+                            <a href="{{ url_for('reject_request', id=request.id) }}" class="btn btn-sm btn-outline-danger">Reject</a>
+                        </div>
+                    </div>
+                    {% elif request.status == 'accepted' %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ url_for('complete_request', id=request.id) }}" class="btn btn-sm btn-outline-success">Complete</a>
+                        </div>
+                    </div>
+                    {% elif request.status=='completed' %}
+                        {% if request.rating %}
+                        <p class="card-text">Rating: {{ request.rating }}</p>
+                        <p class="card-text">Review: {{ request.review }}</p>
+                        {% endif %}
+                    {% else %}
+                    <p class="card-text">Status: {{ request.status }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="row">
+        {% for request in service_requests %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ request.professional.profession }}</h5>
+                    <p class="card-text">Service <strong>{{request.service.name}} </strong> request from <strong>{{request.professional.name}}</strong> on <em>{{ request.service_date }}</em> </p>
+                    <p class="card-text">{{ request.service.description }}</p>
+                    <p class="card-text">Service Charges: Rs {{ request.service.charges }}</p>
+                    <p class="card-text">Service Time: {{ request.service.service_time }} minutes</p>
+                    <p class="card-text">Status: 
+                        <span class="card-text
+                            {% if request.status == 'pending' %}
+                            text-warning
+                            {% elif request.status == 'accepted' %}
+                            text-primary
+                            {% elif request.status == 'rejected' %}
+                            text-danger
+                            {% elif request.status == 'completed' %}
+                            text-success
+                            {% endif %}">{{ request.status }}
+                        </span>
+                    </p>
+                    {% if request.status == 'completed' %}
+                        {% if request.rating %}
+                        <p class="card-text">Rating: {{ request.rating }}</p>
+                        <p class="card-text">Review: {{ request.review }}</p>
+                        {% else %}
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="row">
+                                <form class="row" action={{url_for('rate_request',id=request.id)}} method="POST">
+                                    <div class = "form-group col-4 justify-content-between mb-3">
+                                        <label class = 'form-label' for="rating"><strong>Rating</strong></label>
+                                        <input class = 'form-control' type="number" name="rating" id="rating" min="1" max="5" required>    
+                                    </div>
+                                    <div class="form-group col-8 justify-content-between mb-3" >
+                                        <label class = 'form-label' for="review"><strong>Review</strong></label>
+                                        <textarea class = 'form-control' row="3" name="review" id="review" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-outline-success form control">Submit Rating</button>
+                                </form>
+                            </div>
+                        </div>  
+                        {% endif %}
+                    {% endif %}
+                </div>  
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
