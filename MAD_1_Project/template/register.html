@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %} Register: A-Z Household Services {% endblock title %}
+
+{% block nav_items %} 
+<li class="nav-item">
+  <a class="nav-link" href={{ url_for('login') }}>Login</a>
+</li>   
+{% endblock nav_items %}
+
+{% block search %}
+{% endblock search %}
+
+{% block content %}
+<div class="container-fluid mt-2 p-3">
+    <h1 class="text-center">Register</h1>
+    <div class="d-flex justify-content-center">
+        <form class="w-50 justify-content-center" method="POST" action="/register" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label"><strong>Name</strong></label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label"><strong>Gender</strong></label>
+                <div class="input-group d-flex align-center">
+                  <input type="radio" id="female" name="gender" value="female" required>&ensp;
+                  <label for="female"> Female </label>&ensp; &ensp;
+                  <input type="radio" id="male" name="gender" value="male" required>&ensp;
+                  <label for="male">Male</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="contact_no" class="form-label"><strong>Contact Number</strong></label>
+                <input type="number" class="form-control" id="contact_no" name="contact_no" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label"><strong>Email Address</strong></label>
+              <input type="email" class="form-control" id="email" name="email" required >
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label"><strong>Password</strong></label>
+                <input type="password" class="form-control" id="exampleInputPassword" name = 'password' required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label"><strong>Address</strong></label>
+                <textarea type="textarea" class="form-control" id="address" name="address" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="pincode" class="form-label"><strong>Pincode</strong></label>
+                <input type="number" class="form-control" id="pincode" name="pincode" required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label"><strong>Role</strong></label>
+                <div class="input-group d-flex align-center">
+                  <input type="radio" id="professional" name="role" value="professional" required>&ensp;
+                  <label for="professional"> Professional </label>&ensp; &ensp;
+                  <input type="radio" id="customer" name="role" value="customer" required>&ensp;
+                  <label for="customer">Customer</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-4">
+                <label for="pfp" class="form-label" ><strong>Upload Profile Picture</strong></label>
+                </div>
+                <div class="mb-3 col-8">
+                <input type="file" id="pfp" class="form-control" name="pfp" accept="image/png, image/jpeg" required>&ensp;
+                </div>
+            </div>
+            <div>
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+                <div class="d-flex justify-content-center mt-2">
+                    <span>Alreay an existing user? &ensp; </span>
+                    <a href={{ url_for("login") }}>Login</a>
+                </div>
+            </div>
+        </form>
+    </div>  
+</div>
+{% endblock content %}

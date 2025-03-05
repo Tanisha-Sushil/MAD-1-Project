@@ -1,0 +1,20 @@
+{% extends 'nav_link.html' %}
+
+{% block title %} Add Category: A-Z Household Services {% endblock title %}
+
+{% block content %}
+<div class="container-fluid mt-2 p-3">
+    <h1 class="text-center">Add Profession</h1>
+    <div class="d-flex justify-content-center">
+        <form class="w-50 justify-content-center" method="POST" action="{{ url_for('add_profession') }}">
+            <div class="mb-3">
+                <label for="profesion_name" class="form-label">Profession Name</label>
+                <input type="text" class="form-control" id="profession_name" name = 'profession_name' required>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>  
+</div>
+{% endblock content %}
